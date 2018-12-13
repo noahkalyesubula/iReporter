@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>iReporter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>i Reporter</h1>
+  <p><i>"Bring any form of corruption to the notice of appropriate authorities and the
+    general public"</i></p>
+</div>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Contact Us</a>
+</div>
+
+<!-- The flexible grid (content) -->
+<div class="row">
+  <div class="main">
+      
+      <div class="form">
+        <div class="head" class="signup">
+          <div onclick="swap(this);" data-tab="login" class="login-tab" >
+            LOGIN
+          </div>
+          <div onclick="swap(this);" data-tab="signup" class="signup-tab">
+            SIGNUP
+          </div>
+        </div>
+        <div class="body" id="form-body">
+            <div class="login">
+              <div class="form-row">
+               
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button onclick="loginUser()">LOGIN</button>
+              </div>
+            </div>
+            <div class="signup">
+              <div class="form-row">
+                      <input type="email"  id="r_email" placeholder="Email" required>
+                      <input type="password" id="r_password" placeholder="Password" required>
+                      <input type="password" id="r_password" placeholder="Confirm Password" required>
+                      <button onclick="RegisterUser()">SIGNUP</button>
+              </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <h5>&copy; iReporter 2018</h5>
+</div>
+<script src="js/login.js"></script>
+</body>
+</html>
