@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/user_profile.css" type="text/css">  
+
+</head>
+<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="#"><b>iReporter</b></a>
+    <a href="#">Manage Incidents</a>
+    <a href="#" class="active">Profile</a>
+    <a href="#">LogOut</a>
+  </div>
+
+<!-- The flexible grid (content) -->
+<div class="row">
+    <div class="side">
+      <h3>User Profile</h3>
+      <div class="fakeimg" style="height:auto;">There  are <font color="red">3</font> red-flag records and <font color="red">2</font> intervention records that have been resolved</div><br>
+      <div class="fakeimg" style="height:auto;">There are <font color="red">0</font> red-flag records and <font color="red">1</font> intervention records that are yet to be resolved (in
+        draft or under investigation states).</div><br>
+      <div class="fakeimg" style="height:auto;">There are <font color="red">1</font> red-flag records and <font color="red">0</font> intervention records that have been rejected.</div>
+      <h3>Subscribe</h3>
+      <p>To our channels to get recent updates.</p>
+      <div><img src="images/sub.jpg" width="50%" height:30px"></div><br>
+      
+    </div>
+  <div class="main">
+      <h4>Red-Flags/Intervention Records</h4><hr>
+        <table border="1">
+            <thead role="rowgroup">
+                <tr role="row">
+                    <th role="columnheader">#</th>
+                    <th role="columnheader">CATEGORY</th>
+                    <th role="columnheader">TITLE</th>
+                    <th role="columnheader">LOCATION</th>
+                    <th role="columnheader">STATUS</th>
+                    <th role="columnheader">CREATED ON</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row">
+                    <td role="cell">1</td>
+                    <td role="cell">Red-flag</td>
+                    <td role="cell">Judicial Corruption</td>
+                    <td role="cell">[5.8676 , 9.9090]</td>
+                    <td role="cell">New</td>
+                    <td role="cell">14/06/18</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">2</td>
+                    <td role="cell">Intervention</td>
+                    <td role="cell">Collapsed Bridges</td>
+                    <td role="cell">[5.8676 , 9.9090]</td>
+                    <td role="cell">Under Investigation</td>
+                    <td role="cell">14/06/18</td>
+                    
+                </tr>
+              </tbody>
+            </table>
+    
+       
+  </div>
+
+
+      
+    
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+        <h5>&copy; iReporter 2018</h5>
+</div>
+<script src="js/myModals.js"></script>
+</body>
+</html>
