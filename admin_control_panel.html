@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Control Panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/admin_control_panel.css" type="text/css">  
+
+</head>
+<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+  <a href="#"><b>iReporter</b></a>
+  <a href="#" class="active">Control Panel</a>
+  <a href="#">LogOut</a>
+</div>
+
+<!-- The flexible grid (content) -->
+<div class="row">
+ 
+  <div class="main">
+      <h4>Red-Flags/Intervention Records</h4><hr>
+        <table border="1">
+            <thead role="rowgroup">
+                <tr role="row">
+                    <th role="columnheader">#</th>
+                    <th role="columnheader">USERNAME</th>
+                    <th role="columnheader">CATEGORY</th>
+                    <th role="columnheader">TITLE</th>
+                    <th role="columnheader">STATUS</th>
+                    <th role="columnheader">CREATED ON</th>
+                    <th role="columnheader">ACTIONS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row">
+                    <td role="cell">1</td>
+                    <td role="cell">Kalyesubula</td>
+                    <td role="cell">Red-flag</td>
+                    <td role="cell">Judicial Corruption</td>
+                    <td role="cell">New</td>
+                    <td role="cell">14/06/18</td>
+                    <td role="cell"><button id="modalBtn" class="button">update status</button></td>
+                
+                </tr>
+                <tr role="row">
+                    <td role="cell">2</td>
+                    <td role="cell">Noah</td>
+                    <td role="cell">Intervention</td>
+                    <td role="cell">Collapsed Bridges</td>
+                    <td role="cell">Under Investigation</td>
+                    <td role="cell">14/06/18</td>
+                    <td role="cell"><button id="modalBtn" class="button">update status</button></td>
+                </tr>
+              </tbody>
+            </table>
+    
+       
+  </div>
+
+
+      
+    
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+        <h5>&copy; iReporter 2018</h5>
+</div>
+<script src="js/myModals.js"></script>
+</body>
+</html>
