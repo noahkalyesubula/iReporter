@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Incidents</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/manage_incidents.css" type="text/css">  
+
+</head>
+<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+  <a href="#"><b>iReporter</b></a>
+  <a href="#" class="active">Manage Incidents</a>
+  <a href="#">Profile</a>
+  <a href="#">LogOut</a>
+</div>
+
+<!-- The flexible grid (content) -->
+<div class="row">
+  <div class="side">
+      <h2>Incidents</h2>
+      <h5>Click the buttons below to create a red flag/intervention records:</h5>
+      <div class="buttons">
+          <button id="red-flag-btn">+ Add red-flag record</button>
+          <button id="intervention-btn">+ Add intervention record</button>
+      </div>
+      <div class="buttons1">
+        <button id="red-flag-btn">+ red-flag</button>
+        <button id="intervention-btn">+ intervention</button>
+    </div>
+    <h3>Subscribe</h3>
+    <p>To our channels to get recent updates.</p>
+    <div><img src="images/sub.jpg" width="50%" height:30px"></div><br>
+    
+  </div>
+  <div class="main">
+    <h2>COLLAPSED BRIDGES</h2>
+    <p><font color="red">Type:</font>Intervention</p>
+    <h5>Overload by spectators during a wedding, Sep 2, 2017</h5>
+    <div><img src="images/bridge.jpg" width="100%" height="200px"></div>
+    <p>Jinja bridge collapse leaves at least one dead  and several trapped...</p>
+    <p><button id="editInterventionBtn" class="editBtn">Edit</button><button id="deleteBtn" >Delete</button></p>
+    <br>
+    <h2>JUDICIAL CORRUPTION</h2>
+    <p><font color="red">Type:</font>Red-flag</p>
+    <h5>Bribery, Dec 7, 2018</h5>
+    <div><img src="images/bribe2.jpeg" width="100%" height="200px"></div>
+    <p>Ben is on trial for charges of rape, for an incident that occurred while he was at a large frat party nearly a year ago...</p>
+    <p><button id="editRedflagBtn" class="editBtn">Edit</button><button id="deleteBtn" >Delete</button></p>
+    <br>
+    <p><button id="readmore">More incidents &#8595;</button></p>
+       
+  </div>
+
+  <!-- The Modal for add red-flags-->
+<div id="AddRedFlagModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+                 <h3>Add red-flag record<span class="closeBtn2">&times;</span></h3>
+          </div>
+          <div class="modal-body">
+            <form class="modal_elements">
+              <label for="title">Title</label>
+              <input type="text" name="title" placeholder="Enter title" required>
+              <label for="description">Description</label>
+              <textarea ></textarea>
+              <label for="location">Location</label><br/>
+              <input type="number" name="location" id="latitude" placeholder="Enter Latitude" required>
+              <input type="number" placeholder="Enter Longitude" id="longitude" name="longitude" required><br/><br/>
+              <label for="image">Upload image</label><br/>
+              <input type="file" name="pic" accept="image/*"><br/><br>
+              <label for="video">Upload video</label><br/>
+              <input type="file" name="vid"><br>
+              <div id="submit">
+                    <input type="submit" name="add_product" value="Add red-flag" id="submitBtn">
+              </div>
+              
+            </form>
+      
+          </div>
+          <div>
+            
+          </div>
+        </div>
+      
+      </div>
+
+      <!-- The Modal for add interventions-->
+<div id="AddInterventionModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+                 <h3>Add intervention record</h3><span class="closeBtn">&times;</span>
+          </div>
+          <div class="modal-body">
+            <form class="modal_elements">
+              <label for="title">Title</label>
+              <input type="text" name="title" placeholder="Enter title" required>
+              <label for="description">Description</label>
+              <textarea ></textarea>
+              <label for="location">Location</label><br/>
+              <input type="number" name="location" id="latitude" placeholder="Enter Latitude" required>
+              <input type="number" placeholder="Enter Longitude" id="longitude" name="longitude" required><br/><br/>
+              <label for="image">Upload image</label><br/>
+              <input type="file" name="pic" accept="image/*"><br/><br>
+              <label for="video">Upload video</label><br/>
+              <input type="file" name="vid"><br>
+              <div id="submit">
+                    <input type="submit" name="add_product" value="Add intervention record" id="submitBtn">
+              </div>
+              
+            </form>
+      
+          </div>
+          <div>
+            
+          </div>
+        </div>
+      
+      </div>
+
+
+       <!-- The Modal for add red-flags-->
+<div id="EditRedFlagModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+                 <h3>Edit red-flag record<span class="closeEditBtn" style="text-align: right">&times;</span></h3>
+          </div>
+          <div class="modal-body">
+            <form class="modal_elements">
+              <label for="title">Title</label>
+              <input type="text" name="title" placeholder="Enter title" value="JUDICIAL CORRUPTION" required>
+              <label for="description">Description</label>
+              <textarea >Bribery, Dec 7, 2018</textarea>
+              <label for="location">Location</label><br/>
+              <input type="number" name="location" id="latitude" value="12.4320" required>
+              <input type="number" value="8.0320" id="longitude" name="longitude" required><br/><br/>
+              <label for="image">Upload image</label><br/>
+              <input type="file" name="pic" accept="image/*"><br/><br>
+              <label for="video">Upload video</label><br/>
+              <input type="file" name="vid"><br>
+              <div id="submit">
+                    <input type="submit" name="add_product" value="Save Changes" id="submitBtn">
+              </div>
+              
+            </form>
+      
+          </div>
+          <div>
+            
+          </div>
+        </div>
+      
+      </div>
+
+       <!-- The Modal for add intervention records-->
+       <div id="EditInterventionModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                     <h3>Edit intervention record<span class="closeEditBtn2">&times;</span></h3>
+              </div>
+              <div class="modal-body">
+                <form class="modal_elements">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" value="COLLAPSED BRIDGES" required>
+                  <label for="description">Description</label>
+                  <textarea >Overload by spectators during a wedding, Sep 2, 2017</textarea>
+                  <label for="location">Location</label><br/>
+                  <input type="number" name="location" id="latitude" value="2.5674" required>
+                  <input type="number" value="7.3427" id="longitude" name="longitude" required><br/><br/>
+                  <label for="image">Upload image</label><br/>
+                  <input type="file" name="pic" accept="image/*"><br/><br>
+                  <label for="video">Upload video</label><br/>
+                  <input type="file" name="vid"><br>
+                  <div id="submit">
+                        <input type="submit" name="add_product" value="Save Changes" id="submitBtn">
+                  </div>
+                  
+                </form>
+          
+              </div>
+              <div>
+                
+              </div>
+            </div>
+          
+          </div>
+    
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+        <h5>&copy; iReporter 2018</h5>
+</div>
+<script src="js/myModals.js"></script>
+</body>
+</html>

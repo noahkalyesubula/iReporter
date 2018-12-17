@@ -61,11 +61,12 @@ body {
 }
 
 /* Footer */
-.footer {
+/* .footer {
     padding: 20px;
     text-align: center;
     background: #ddd;
-}
+    
+} */
 
 /*-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->*/
 .form {
@@ -172,4 +173,5 @@ body {
     height:270px;
     
     }
+   
 }
