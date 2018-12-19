@@ -1,2 +1,2 @@
 [run]
-omit = tests\test_red_flag_view.py, tests\__init__.py , app\views\__init__.py , app\routes\redflag_urls.py,app\routes\__init__.py , app\models\red_flag_model.py, app\models\__init__.py, app\__init__.py
+omit = tests\test_red_flag_view.py, tests\__init__.py , app\views\__init__.py , app\routes\redflag_urls.py,app\routes\__init__.py , app\models\red_flag_model.py, app\models\__init__.py, app\__init__.py, run.py
