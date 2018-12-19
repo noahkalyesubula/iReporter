@@ -1,1 +1,6 @@
 UI
+.pytest_cache
+app/__pycache__/
+app/models/__pycache__/
+app/views/__pycache__/
+tests/__pycache__/
