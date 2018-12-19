@@ -100,3 +100,47 @@ def test_to_get_all_redflags():
     assert json_data['data'][0]['createdBy'] == "Noah"
     assert json_data['data'][0]['comment'] == "Bribery"
     assert json_data['data'][0]['status'] == "draft"
+
+############################# Tests for getting a specific red-flag record ######################################
+def test_to_get_a_specific_redflag_record():
+    """
+    Method for fetching a specific red-flag
+    """
+    result = client_tester().get('/api/v1/red-flags/1')
+    assert result.status_code == 200
+    json_data = json.loads(result.data)
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['title'] == "Judicial corruption"
+    assert json_data['data'][0]['location'] == [0.8789,9.5672]
+    assert json_data['data'][0]['createdBy'] == "Noah"
+    assert json_data['data'][0]['comment'] == "Bribery"
+    assert json_data['data'][0]['status'] == "draft"
+
+############################# Tests for getting a specific red-flag record with wrong id ######################################
+def test_for_getting_a_record_wrong_id():
+    """
+    Method for fetching a specific red-flag
+    """
+    #passing a negative id
+    result1 = client_tester().get('/api/v1/red-flags/-9')
+
+    #passing a string as an id 
+    result2 = client_tester().get('/api/v1/red-flags/dndnd')
+    
+    #passing an id that doesn't exist
+    result3 = client_tester().get('/api/v1/red-flags/10')
+
+    # checking the status codes
+    assert result1.status_code == 400
+    assert result2.status_code == 400
+    assert result3.status_code == 404
+
+    # converting our results into json
+    json_data1 = json.loads(result1.data)
+    json_data2 = json.loads(result2.data)
+    json_data3 = json.loads(result3.data)
+
+    assert json_data1['error'] == "The id cannot be negative"
+    assert json_data2['error'] == "The id must be a non negative integer"
+    assert json_data3['error'] == "Red-flag not found"
+    
