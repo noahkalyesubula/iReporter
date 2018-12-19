@@ -1,4 +1,5 @@
 import re
+from flask import jsonify
 """
 Red-flag modal for creating new red-flags
 """
@@ -60,11 +61,11 @@ class RedFlagModel:
 
     def validate_id(id):
         try:
-            convert_id = int(i)
+            convert_id = int(id)
             
         except:
-            return jsonify({"status": 400, "error":"The id must be a non negative integer"})
+            return jsonify({"status": 400, "error":"The id must be a non negative integer"}),400
 
         if convert_id < 0:
-            jsonify({"status": 400, "error":"The id cannot be negative"})
+            return jsonify({"status": 400, "error":"The id cannot be negative"}),400
         return True
