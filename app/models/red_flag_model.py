@@ -16,8 +16,7 @@ class RedFlagModel:
         errors = []
         if not createdBy or not title or not location or not comment:
             errors.append("createdBy, title, location, and comment must not be empty")
-        if not isinstance(createdBy, str) or re.search("[0-9]", comment) or re.search("[$#@]", comment):
-                                                                                         
+        if not isinstance(createdBy, str) or re.search("[0-9]", str(createdBy)) or re.search("[$#@]", str(createdBy)):                                                                
             errors.append("createdBy must be a string with no digits or special characters")
         if RedFlagModel.validate_comment(comment) is not True:
             errors += RedFlagModel.validate_comment(comment)
@@ -48,12 +47,24 @@ class RedFlagModel:
             caught_errors.append("The comment must be a string")
         try:
             if (len(comment) < 5 or len(comment) > 50):
-                caught_errors.append("The comment must be between 5 and 50 characters1")
+                caught_errors.append("The comment must be between 5 and 50 characters")
         except:
-            caught_errors.append("Comment must be between 5 and 50 characters2")
-        if re.search("[0-9]", comment) or re.search("[$#@]", comment):
-            caught_errors.append("Comment cannot contain numbers or special characters")
+            caught_errors.append("Comment must be between 5 and 50 characters")
 
+        
+        if re.search("[0-9]", str(comment)) or re.search("[$#@]", str(comment)):
+            caught_errors.append("Comment cannot contain numbers or special characters")
         if not caught_errors:
             return True
         return caught_errors
+
+    def validate_id(id):
+        try:
+            convert_id = int(i)
+            
+        except:
+            return jsonify({"status": 400, "error":"The id must be a non negative integer"})
+
+        if convert_id < 0:
+            jsonify({"status": 400, "error":"The id cannot be negative"})
+        return True

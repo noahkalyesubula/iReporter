@@ -6,6 +6,22 @@ from app.models.red_flag_model import RedFlagModel
 class RedFlagView(MethodView):
     redflags_list = []
 
+    
+    def get(self, id):
+        if id is None:
+            if not self.redflags_list:
+                return jsonify({"status":200, "data":[{"message":"There are no red-flags yet"}]})
+            return jsonify({"status":200,"data": [redflag_record.__dict__ for redflag_record in self.redflags_list]})
+
+        validate_id_result = RedFlagModel.validate_id(id)
+        if validate_id_result is not True:
+            return RedFlagModel.validate_id(id)
+        single_redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(id) ]
+        if single_redflag_record:
+            return jsonify({"status":200, "data": single_redflag_record[0]})
+        return jsonify({"status":404, "data":[{"error-message" : "No red-flag found"}]}),404
+    
+    
     def post(self):
         if request.content_type != 'application/json':
             return jsonify({"status":400, "error":"Content-type must be json"}),400
