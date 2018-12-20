@@ -9,8 +9,9 @@ class Routes:
         app.add_url_rule('/api/v1/red-flags', defaults={'id': None},
                          view_func=redflag_views, methods=['GET',])
         app.add_url_rule('/api/v1/red-flags', view_func=redflag_views, methods=['POST',])
+        app.add_url_rule('/api/v1/red-flags/<id>/location', view_func=redflag_views,  methods=['PUT',])
+        app.add_url_rule('/api/v1/red-flags/<id>/comment', view_func=edit_comment,  methods=['PUT',])
         app.add_url_rule('/api/v1/red-flags/<id>', view_func=redflag_views,  methods=['GET','DELETE'])
-        app.add_url_rule('/api/v1/red-flags/<id>/location', view_func=redflag_views,  methods=['PUT'])
-        app.add_url_rule('/api/v1/red-flags/<id>/comment', view_func=edit_comment,  methods=['PUT'])
+        
         
        

@@ -35,13 +35,11 @@ class RedFlagModel:
         try:
             if len(location) != 2:
                 get_errors.append("location expects only two parameters in the list")
-        except:
-            get_errors.append("location expects only two parameters in the list")
-        try:
             if (type(location[0]) not in [int, float]) or (type(location[1]) not in [int, float]):
                 get_errors.append("The location should contain only integers or floats")                                         
         except:
             get_errors.append("location should contain only integers or floats")
+            get_errors.append("location expects only two parameters in the list")
         if not get_errors:
             return True
         return get_errors
@@ -50,12 +48,9 @@ class RedFlagModel:
         caught_errors = []
         if not isinstance(comment, str):
             caught_errors.append("The comment must be a string")
-        try:
-            if (len(comment) < 5 or len(comment) > 50):
+        
+        if (len(str(comment)) < 5 or len(str(comment)) > 50):
                 caught_errors.append("The comment must be between 5 and 50 characters")
-        except:
-            caught_errors.append("Comment must be between 5 and 50 characters")
-
         
         if re.search("[0-9]", str(comment)) or re.search("[$#@]", str(comment)):
             caught_errors.append("Comment cannot contain numbers or special characters")
@@ -90,14 +85,14 @@ class RedFlagModel:
 
         return True
     
-    def edit_comment_validation(comment, redflags_list, id):
+    def comment_validations(comment, redflags_list, redflag_id):
         
-        # validate location
+        # comment
         if RedFlagModel.validate_comment(comment) is not True:
             return jsonify({"status":400, "error": RedFlagModel.validate_comment(comment)}),400
         
         #check if the id matches a particular red-flag in the list
-        redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(id) ]
+        redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(redflag_id) ]
         if not redflag_record:
             return jsonify({"status":404, "error":"Red-flag not found"}),404
 
@@ -105,3 +100,8 @@ class RedFlagModel:
             return jsonify({"status":400, "error": "Sorry, you can no longer edit or delete this red-flag"}),400
 
         return True
+    
+    def validate_content_type(contentType):
+        if contentType == 'application/json':
+            return True
+        return jsonify({"status":400, "error":"The content type must be json"}), 400

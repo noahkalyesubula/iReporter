@@ -44,8 +44,9 @@ class RedFlagView(MethodView):
 
     # update geolocation
     def put(self, id):
-        if request.content_type != 'application/json':
-            return jsonify({"status":400, "error":"The content-type must be json"}), 400
+        content_type = RedFlagModel.validate_content_type(request.content_type)
+        if content_type is not True:
+            return content_type
         
         redlag_id_validation = RedFlagModel.validate_id(id)
         
@@ -65,14 +66,32 @@ class RedFlagView(MethodView):
         get_record[0]['location'] = get_location['location']
 
         return jsonify({"status":400, "data":[{"id":int(id), "message":"Updated red-flag record’s location"}]})
+
+    # Delete a specific red flag record
+    def delete(self, id):
+        delete_id_validation = RedFlagModel.validate_id(id)
+        if delete_id_validation is not True:
+            return delete_id_validation
+        get_redflag_record = [rf_record for rf_record in redflags_list if rf_record.__dict__['id'] == int(id) ]
+
+        if not get_redflag_record:
+            return jsonify({"status":404, "error":"Red-flag not found"}),404
         
+        if get_redflag_record[0].__dict__['status'] in ['under investigation','rejected','resolved']:
+            return jsonify({"status":400, "error": "You can no longer edit or delete this red-flag"}),400
+
+        redflags_list.remove(get_redflag_record[0])
+
+        return jsonify({"status":200, "data":[{"id":int(id), "message":"red-flag record has been deleted"}]})
+
 
 class EditComment(MethodView):
 
     def put(self, id):
-        if request.content_type != 'application/json':
-            return jsonify({"status":400, "error":"The content type must be json"}), 400
-        
+        content_type = RedFlagModel.validate_content_type(request.content_type)
+        if content_type is not True:
+            return content_type
+
         edit_id_validation = RedFlagModel.validate_id(id)
         
         if edit_id_validation is not True:
@@ -82,7 +101,7 @@ class EditComment(MethodView):
             return jsonify({"status": 400, "error":"wrong location format. follow this example ->> {'comment':'Bribery'}"}),400
 
         get_comment = request.get_json()
-        edit_validation_result = RedFlagModel.edit_comment_validation(get_comment['comment'], redflags_list, int(id))
+        edit_validation_result = RedFlagModel.comment_validations(get_comment['comment'], redflags_list, int(id))
 
         if edit_validation_result is not True:
             return edit_validation_result
