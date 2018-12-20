@@ -88,9 +88,8 @@ class RedFlagView(MethodView):
 class EditComment(MethodView):
 
     def put(self, id):
-        content_type = RedFlagModel.validate_content_type(request.content_type)
-        if content_type is not True:
-            return content_type
+        if request.content_type != 'application/json':
+            return jsonify({"status":400, "error":"The content type must be json"}), 400
 
         edit_id_validation = RedFlagModel.validate_id(id)
         
@@ -101,7 +100,7 @@ class EditComment(MethodView):
             return jsonify({"status": 400, "error":"wrong location format. follow this example ->> {'comment':'Bribery'}"}),400
 
         get_comment = request.get_json()
-        edit_validation_result = RedFlagModel.comment_validations(get_comment['comment'], redflags_list, int(id))
+        edit_validation_result = EditComment.comment_validations(get_comment['comment'], redflags_list, int(id))
 
         if edit_validation_result is not True:
             return edit_validation_result
@@ -110,6 +109,23 @@ class EditComment(MethodView):
         redflag_record[0]['comment'] = get_comment['comment']
 
         return jsonify({"status":400, "data":[{"id":int(id), "message":"Updated red-flag record’s comment"}]})
+
+    def comment_validations(comment, redflags_list, redflag_id):
+        
+        # comment
+        if RedFlagModel.validate_comment(comment) is not True:
+            return jsonify({"status":400, "error": RedFlagModel.validate_comment(comment)}),400
+        
+        #check if the id matches a particular red-flag in the list
+        redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(redflag_id) ]
+        if not redflag_record:
+            return jsonify({"status":404, "error":"Red-flag not found"}),404
+
+        if redflag_record[0]['status'] in ['under investigation','rejected','resolved']:
+            return jsonify({"status":400, "error": "Sorry, you can no longer edit or delete this red-flag"}),400
+
+        return True
+    
 
 
 
