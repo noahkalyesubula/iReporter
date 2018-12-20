@@ -31,7 +31,11 @@ class RedFlagModel:
         get_errors = []
         if not type(location) is list:
             get_errors.append("wrong location format. follow this example ->> {'location':[12.3453,9.6589]}")
-        if len(location) != 2:
+        
+        try:
+            if len(location) != 2:
+                get_errors.append("location expects only two parameters in the list")
+        except:
             get_errors.append("location expects only two parameters in the list")
         try:
             if (type(location[0]) not in [int, float]) or (type(location[1]) not in [int, float]):
@@ -68,4 +72,36 @@ class RedFlagModel:
 
         if convert_id < 0:
             return jsonify({"status": 400, "error":"The id cannot be negative"}),400
+        return True
+
+    def edit_location_validation(location, redflags_list, id):
+        
+        # validate location
+        if RedFlagModel.validate_location(location) is not True:
+            return jsonify({"status":400, "error": RedFlagModel.validate_location(location)}),400
+        
+        #check if the id matches a particular red-flag in the list
+        get_redflag_record = [r_record.__dict__ for r_record in redflags_list if r_record.__dict__['id'] == int(id) ]
+        if not get_redflag_record:
+            return jsonify({"status":404, "error":"Red-flag not found"}),404
+
+        if get_redflag_record[0]['status'] in ['under investigation','rejected','resolved']:
+            return jsonify({"status":400, "error": "You can no longer edit or delete this red-flag"}),400
+
+        return True
+    
+    def edit_comment_validation(comment, redflags_list, id):
+        
+        # validate location
+        if RedFlagModel.validate_comment(comment) is not True:
+            return jsonify({"status":400, "error": RedFlagModel.validate_comment(comment)}),400
+        
+        #check if the id matches a particular red-flag in the list
+        redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(id) ]
+        if not redflag_record:
+            return jsonify({"status":404, "error":"Red-flag not found"}),404
+
+        if redflag_record[0]['status'] in ['under investigation','rejected','resolved']:
+            return jsonify({"status":400, "error": "Sorry, you can no longer edit or delete this red-flag"}),400
+
         return True

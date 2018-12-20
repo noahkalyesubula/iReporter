@@ -144,3 +144,172 @@ def test_for_getting_a_record_wrong_id():
     assert json_data2['error'] == "The id must be a non negative integer"
     assert json_data3['error'] == "Red-flag not found"
     
+############################# Tests for changing geolocation ######################################
+def test_to_change_geolocation_of_a_redflag():
+    """
+    Method for changing geolocation
+    """
+    result = client_tester().put('api/v1/red-flags/1/location',content_type='application/json',
+                           data=json.dumps({"location" : [10.1010,20.2020]}))
+    
+    assert result.status_code == 200
+
+    json_data = json.loads(result.data)
+    assert "data" in json_data
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['message'] == "Updated red-flag record’s location"
+
+    #make a put request to check whether the red-flag has been updated
+    check_redflag = client_tester().get('/api/v1/red-flags/1')
+    assert check_redflag.status_code == 200
+    json_data = json.loads(check_redflag.data)
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['title'] == "Judicial corruption"
+    assert json_data['data'][0]['location'] == [10.1010,20.2020]
+    assert json_data['data'][0]['createdBy'] == "Noah"
+    assert json_data['data'][0]['comment'] == "Bribery"
+    assert json_data['data'][0]['status'] == "draft"
+
+    ############################## Tests for updating a red-flag with wrong content type ######################################
+def test_for_updating_a_redflag_with_wrong_content_type():
+    """
+    Method for addng a new red-flag with wrong content type 
+    """
+    result = client_tester().put('api/v1/red-flags/1/location', content_type='text',
+                           data=json.dumps({"location" : [10.1010,20.2020]}))
+    
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == "The content-type must be json"
+    assert json_data['status'] == 400
+
+############################# Tests for updating a location with wrong id ######################################
+def test_for_updating_a_record_with_wrong_id():
+    """
+    Method for fetching a specific red-flag
+    """
+    #passing a negative id
+    result1 = client_tester().put('api/v1/red-flags/-9/location', content_type='application/json')
+
+    #passing a string as an id 
+    result2 = client_tester().put('api/v1/red-flags/vhgjf/location', content_type='application/json')
+    
+
+    # checking the status codes
+    assert result1.status_code == 400
+    assert result2.status_code == 400
+  
+    # converting our results into json
+    json_data1 = json.loads(result1.data)
+    json_data2 = json.loads(result2.data)
+    
+    assert json_data1['error'] == "The id cannot be negative"
+    assert json_data2['error'] == "The id must be a non negative integer"
+    
+############################# Tests for updating a specific red-flag record with wrong body format ######################################
+def test_for_updating_location_with_wrong_body_format():
+    """
+    Method for addng a new red-flag with wrong body format
+    """
+    result = client_tester().put('api/v1/red-flags/1/location', content_type='application/json',
+                           data=json.dumps({}))
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == "wrong location format. follow this example ->> {'location':[12.3453,9.6589]}"
+    assert json_data['status'] == 400
+
+############################# Tests for updating location with wrong values ######################################
+def test_to_update_a_new_redflag_with_wrong_values():
+    """
+    Method for addng a new red-flag with wrong values
+    """
+    result = client_tester().put('api/v1/red-flags/1/location', content_type='application/json',
+                           data=json.dumps({"location": 2}))
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == [
+                                    "wrong location format. follow this example ->> {'location':[12.3453,9.6589]}",
+                                    "location expects only two parameters in the list",
+                                    "location should contain only integers or floats"
+                                ]
+    assert json_data['status'] == 400
+
+
+############################# Tests for changing the comment ######################################
+def test_to_change_the_comment_of_a_redflag():
+    """
+    Method for changing comment
+    """
+    result = client_tester().put('api/v1/red-flags/1/comment',content_type='application/json',
+                           data=json.dumps({"comment" : "Deceit"}))
+    
+    assert result.status_code == 200
+
+    json_data = json.loads(result.data)
+    assert "data" in json_data
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['message'] == "Updated red-flag record’s comment"
+
+    #make a put request to check whether the red-flag has been updated
+    check_redflag = client_tester().get('/api/v1/red-flags/1')
+    assert check_redflag.status_code == 200
+    json_data = json.loads(check_redflag.data)
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['title'] == "Judicial corruption"
+    assert json_data['data'][0]['location'] == [10.1010,20.2020]
+    assert json_data['data'][0]['createdBy'] == "Noah"
+    assert json_data['data'][0]['comment'] == "Deceit"
+    assert json_data['data'][0]['status'] == "draft"
+
+def test_for_editing_comment_with_wrong_content_type():
+    """
+    Method for addng a new red-flag with wrong content type 
+    """
+    result = client_tester().put('api/v1/red-flags/1/comment', content_type='text',
+                           data=json.dumps({"comment" : "Deceit"}))
+    
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == "The content type must be json"
+    assert json_data['status'] == 400
+
+############################# Tests for updating location with wrong values ######################################
+def test_for_editting_comment_with_wrong_values():
+    """
+    Method for editting comment with wrong values
+    """
+    result = client_tester().put('api/v1/red-flags/1/comment', content_type='application/json',
+                           data=json.dumps({"comment": 2}))
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == [
+                                    "The comment must be a string",
+                                    "Comment must be between 5 and 50 characters",
+                                    "Comment cannot contain numbers or special characters"
+                                    ]
+    assert json_data['status'] == 400
+
+############################# Tests for updating a specific red-flag record with wrong body format ######################################
+def test_for_updating_comment_with_wrong_body_format():
+    """
+    Method for updating comment with wrong body format
+    """
+    result = client_tester().put('api/v1/red-flags/1/comment', content_type='application/json',
+                           data=json.dumps({}))
+    assert result.status_code == 400
+
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == "wrong location format. follow this example ->> {'comment':'Bribery'}"
+    assert json_data['status'] == 400
+
