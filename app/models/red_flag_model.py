@@ -69,12 +69,18 @@ class RedFlagModel:
             return jsonify({"status": 400, "error":"The id cannot be negative"}),400
         return True
 
-    def edit_location_validation(location, redflags_list, id):
-        
-        # validate location
-        if RedFlagModel.validate_location(location) is not True:
-            return jsonify({"status":400, "error": RedFlagModel.validate_location(location)}),400
-        
+    def edit_validations(message, redflags_list, id, category):
+        # category 0 - location
+        # category 1 - comments
+
+        if category == 0:
+            # validate location
+            if RedFlagModel.validate_location(message) is not True:
+                return jsonify({"status":400, "error": RedFlagModel.validate_location(message)}),400
+        if category == 1:
+            # comment
+            if RedFlagModel.validate_comment(message) is not True:
+                return jsonify({"status":400, "error": RedFlagModel.validate_comment(message)}),400
         #check if the id matches a particular red-flag in the list
         get_redflag_record = [r_record.__dict__ for r_record in redflags_list if r_record.__dict__['id'] == int(id) ]
         if not get_redflag_record:
@@ -85,6 +91,24 @@ class RedFlagModel:
 
         return True
     
+    #  def comment_validations(comment, redflags_list, redflag_id):
+        
+    #     # comment
+    #     if RedFlagModel.validate_comment(comment) is not True:
+    #         return jsonify({"status":400, "error": RedFlagModel.validate_comment(comment)}),400
+        
+    #     #check if the id matches a particular red-flag in the list
+    #     redflag_record = [record.__dict__ for record in redflags_list if record.__dict__['id'] == int(redflag_id) ]
+    #     if not redflag_record:
+    #         return jsonify({"status":404, "error":"Red-flag not found"}),404
+
+    #     if redflag_record[0]['status'] in ['under investigation','rejected','resolved']:
+    #         return jsonify({"status":400, "error": "Sorry, you can no longer edit or delete this red-flag"}),400
+
+    #     return True
+
+
+
     
     def validate_content_type(contentType):
         if contentType == 'application/json':
