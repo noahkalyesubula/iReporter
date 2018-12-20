@@ -182,7 +182,7 @@ def test_for_updating_a_redflag_with_wrong_content_type():
 
     json_data = json.loads(result.data)
     assert "error" in json_data
-    assert json_data['error'] == "The content-type must be json"
+    assert json_data['error'] == "The content type must be json"
     assert json_data['status'] == 400
 
 ############################# Tests for updating a location with wrong id ######################################
@@ -235,8 +235,8 @@ def test_to_update_a_new_redflag_with_wrong_values():
     assert "error" in json_data
     assert json_data['error'] == [
                                     "wrong location format. follow this example ->> {'location':[12.3453,9.6589]}",
-                                    "location expects only two parameters in the list",
-                                    "location should contain only integers or floats"
+                                    "location should contain only integers or floats",
+                                    "location expects only two parameters in the list"
                                 ]
     assert json_data['status'] == 400
 
@@ -288,15 +288,22 @@ def test_for_editting_comment_with_wrong_values():
     """
     result = client_tester().put('api/v1/red-flags/1/comment', content_type='application/json',
                            data=json.dumps({"comment": 2}))
+    result2 = client_tester().put('api/v1/red-flags/sxff/comment', content_type='application/json',
+                           data=json.dumps({"comment": 2}))
     assert result.status_code == 400
-
+    assert result2.status_code == 400
+    
     json_data = json.loads(result.data)
+    json_data2 = json.loads(result2.data)
     assert "error" in json_data
+    assert "error" in json_data2
     assert json_data['error'] == [
                                     "The comment must be a string",
-                                    "Comment must be between 5 and 50 characters",
+                                    "The comment must be between 5 and 50 characters",
                                     "Comment cannot contain numbers or special characters"
                                     ]
+    assert json_data2['error'] == "The id must be a non negative integer"
+    
     assert json_data['status'] == 400
 
 ############################# Tests for updating a specific red-flag record with wrong body format ######################################
@@ -313,3 +320,47 @@ def test_for_updating_comment_with_wrong_body_format():
     assert json_data['error'] == "wrong location format. follow this example ->> {'comment':'Bribery'}"
     assert json_data['status'] == 400
 
+############################# Tests for deleting a red flag ######################################
+def test_to_delete_a_redflag():
+    result = client_tester().delete('api/v1/red-flags/1')
+    
+    assert result.status_code == 200
+
+    json_data = json.loads(result.data)
+    assert "data" in json_data
+    assert json_data['data'][0]['id'] == 1
+    assert json_data['data'][0]['message'] == "red-flag record has been deleted"
+
+    # check to verify whether the red-flag has been deleted
+    result = client_tester().get('api/v1/red-flags')
+    assert result.status_code == 200
+    json_data = json.loads(result.data)
+    assert json_data['data'][0]['message'] == "There are no red-flags yet"
+
+
+# ######################### tests for deleting a red-flag using a wrong id ##################################
+def test_to_delete_a_redflag_using_a_wrong_id():
+    result1 = client_tester().delete('api/v1/red-flags/-2')
+    result2 = client_tester().delete('api/v1/red-flags/wee')
+
+    assert result1.status_code == 400
+    assert result2.status_code == 400
+    json_data1 = json.loads(result1.data)
+    json_data2 = json.loads(result2.data)
+    assert "error" in json_data1
+    assert "error" in json_data2
+
+    assert json_data1['error'] == "The id cannot be negative"
+    assert json_data2['error'] == "The id must be a non negative integer"
+    assert json_data1['status'] == 400
+    assert json_data2['status'] == 400
+
+#########################tests for deleting a red-flag that doesn't exist####################################
+def test_to_delete_a_redflag_which_doesnt_exist():
+    result = client_tester().delete('api/v1/red-flags/2')
+
+    assert result.status_code == 404
+    json_data = json.loads(result.data)
+    assert "error" in json_data
+    assert json_data['error'] == "Red-flag not found"
+    assert json_data['status'] == 404
