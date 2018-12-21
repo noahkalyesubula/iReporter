@@ -4,7 +4,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/686f37edfc20a7c0d374/maintainability)](https://codeclimate.com/github/noahkalyesubula/iReporter/maintainability)
 
-https://coveralls.io/repos/github/noahkalyesubula/iReporter/badge.svg?branch=develop(Coverage Status)!:https://coveralls.io/github/noahkalyesubula/iReporter?branch=develop
+[![Coverage Status](https://coveralls.io/repos/github/noahkalyesubula/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/noahkalyesubula/iReporter?branch=develop)
 
 ## Project overview:
 
