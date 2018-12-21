@@ -1,10 +1,8 @@
 # iReporter
 
-[![Build Status](https://travis-ci.org/noahkalyesubula/iReporter.svg?branch=develop)] (https://travis-ci.org/noahkalyesubula/iReporter) [![Maintainability](https://api.codeclimate.com/v1/badges/686f37edfc20a7c0d374/maintainability)](https://codeclimate.com/github/noahkalyesubula/iReporter/maintainability) 
+[![Build Status](https://travis-ci.org/noahkalyesubula/iReporter.svg?branch=develop)](https://travis-ci.org/noahkalyesubula/iReporter)
+[![Maintainability](https://api.codeclimate.com/v1/badges/686f37edfc20a7c0d374/maintainability)](https://codeclimate.com/github/noahkalyesubula/iReporter/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/noahkalyesubula/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/noahkalyesubula/iReporter?branch=develop)
-
-
-
 ## Project overview:
 
 Corruption is a huge bane to Africa’s development. African countries must develop novel and
