@@ -34,6 +34,12 @@ class RedFlagView(MethodView):
         if validation_result is not True:
             return jsonify({"status":400, "error": validation_result}),400
         
+        #check if the red-flag already exists
+        check_for_existance = [redflag_record.__dict__ for redflag_record in redflags_list if redflag_record.__dict__['createdBy'] == request.json['createdBy']]
+        
+        if check_for_existance:
+            return jsonify({"status":400, "error":"This red-flag already exists, please create a new one."}),400
+
         redflag_id = len(redflags_list) + 1
         # Add a new red-flag record
         new_redflag_record = RedFlagModel(id = redflag_id, createdBy = request.json['createdBy'], title = request.json['title'], \

@@ -29,6 +29,16 @@ def test_to_create_a_new_redflag():
     assert json_data['status'] == 201
     assert json_data['data'][0]['message'] == "Created red-flag record"
 
+def test_to_if_the_redflag_already_exists():
+    result = client_tester().post('/api/v1/red-flags', content_type='application/json',
+                           data=json.dumps({"createdBy" : "Noah",
+                                            "title":"Judicial corruption",
+                                            "location" : [0.8789, 9.5672],
+                                            "comment" : "Bribery"}))
+    assert result.status_code == 400
+    json_data = json.loads(result.data)
+    assert json_data['error'] == "This red-flag already exists, please create a new one."
+    assert json_data['status'] == 400
 ############################## Tests for addng a new red-flag with wrong content type ######################################
 def test_to_create_a_new_redflag_with_wrong_content_type():
     """
@@ -84,6 +94,11 @@ def test_to_create_a_new_redflag_with_wrong_values():
                                     "The location should contain only integers or floats"
                                 ]
     assert json_data['status'] == 400
+
+
+
+
+
 
 ############################# Tests for getting all red-flags ######################################
 
