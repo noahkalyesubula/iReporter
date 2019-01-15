@@ -14,6 +14,40 @@ general public. Users can also report on things that needs government interventi
 - Edit a specific red-flag record
 - Delete a red-flag record
 
+The live demo for this project can be found at: 
+https://noahkalyesubula.github.io/iReporter/
+
+Github repository can be found at:
+https://github.com/noahkalyesubula/iReporter
+
+PivotalTracker link: https://www.pivotaltracker.com/n/projects/2231656
+
+
+
+## Project usage:
+The project has an admin and users.
+
+### Admin
+The admin is able to log into the system and view a list of all red-flag/intervention records created by all users.
+The admin can also change the status of a record to either under investigation, rejected (in the
+event of a false claim) or resolved (in the event that the claim has been investigated and
+resolved) .
+<!--admin login credentials-->
+#### Admin credentials
+email:admin@admin.com
+password:admin1234
+
+
+### Users
+The user is able to log into the system with the right credentials. 
+The user is also able to create/edit/delete their red-flag or intervention records.
+<!--user login credentials-->
+#### User credentials
+email:user@user.com
+password:user1234
+
+## Configuration instructions:
+For one to use this application, the person needs to have a computer with a browser and a steady internet connection.
 
 These are the endpoints:
 
