@@ -67,8 +67,7 @@ def test_to_create_a_new_redflag_with_wrong_body_format():
 
     json_data = json.loads(result.data)
     assert "error" in json_data
-    assert json_data['error'] == "Wrong body format. refer to this example -> {'createdBy': 'Noah', 'title': 'Judicial Corruption, \
-                                                                 'location':[6.2134,3.5677], 'comment':'Bribery'}"
+    assert json_data['error'] == "Wrong body format. refer to this example -> {'createdBy': 'Noah', 'title': 'Judicial Corruption, 'location':[6.2134,3.5677],'comment':'Bribery'}"
     assert json_data['status'] == 400
 
 ############################# Tests for addng a new red-flag with wrong values ######################################
